@@ -1,28 +1,15 @@
-import React, { Component } from 'react';
-import './app.css';
-import RegistrationForm from './RegistrationForm';
-
-const menu = [
-  {
-    link: '/articles',
-    label: 'Articles',
-  },
-  {
-    link: '/contacts',
-    label: 'Contacts',
-  },
-  {
-    link: '/posts',
-    label: 'Posts',
-  }
-];
-
+import React, { Component } from 'react'
 
 export default class App extends Component {
+  submit = () => {
+    console.log('submit', this.testInput.value)
+  }
+
   render() {
     return (
       <div>
-        <RegistrationForm />
+        <input type="text" placeholder="test" ref={input => this.testInput = input} />
+        <button onClick={this.submit}>Submit</button>
       </div>
     )
   }
