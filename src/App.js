@@ -1,16 +1,25 @@
-import React, { Component } from 'react'
-
-export default class App extends Component {
-  submit = () => {
-    console.log('submit', this.testInput.value)
-  }
-
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+class App extends Component {
   render() {
+    console.log(this.props.tracks);
     return (
       <div>
-        <input type="text" placeholder="test" ref={input => this.testInput = input} />
-        <button onClick={this.submit}>Submit</button>
+        <input type="text" />
+        <button>Add track</button>
+        <ul>
+          {this.props.tracks.map((track, index) =>
+            <li key={index}>{track}</li>
+          )}
+        </ul> 
       </div>
     )
   }
 }
+
+export default connect(
+  state => ({
+    tracks: state.tracks,
+  }),
+  dispatch => ({})
+)(App);
