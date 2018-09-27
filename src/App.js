@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 class App extends Component {
+  addTrack = (event) => {
+    // console.log('add track', this.trackInput.value);
+    this.props.onAddTrack(this.trackInput.value);
+    this.trackInput.value = '';
+  }
+
   render() {
-    console.log(this.props.tracks);
+    // console.log(this.props.tracks);
     return (
       <div>
-        <input type="text" />
-        <button>Add track</button>
+        <input type="text" ref={input => this.trackInput = input} />
+        <button onClick={this.addTrack}>Add track</button>
         <ul>
           {this.props.tracks.map((track, index) =>
             <li key={index}>{track}</li>
@@ -21,5 +27,9 @@ export default connect(
   state => ({
     tracks: state.tracks,
   }),
-  dispatch => ({})
+  dispatch => ({
+    onAddTrack: (trackName) => {
+      dispatch({ type: 'ADD_TRACK', payload: trackName });
+    }
+  })
 )(App);
