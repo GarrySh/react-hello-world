@@ -1,7 +1,4 @@
-const initialState = [
-  'smells like teen spirit',
-  'enter sandman',
-];
+const initialState = [];
 
 export default (state = initialState, action) => {
   switch (action.type) {

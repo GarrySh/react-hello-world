@@ -1,21 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 class App extends Component {
+  state = {
+    inputValue: '',
+    searchValue: '',
+  };
+
   addTrack = (event) => {
-    // console.log('add track', this.trackInput.value);
-    this.props.onAddTrack(this.trackInput.value);
-    this.trackInput.value = '';
+    this.props.onAddTrack(this.state.inputValue);
+  };
+
+  findTrack = (event) => {
+    console.log('find value', this.state.searchValue);
+    this.props.onFindTrack(this.state.searchValue);
+  }
+
+  handleInputValue = (event) => {
+    const { value } = event.target;
+    this.setState({ inputValue: value });
+  }
+
+  handleSearchValue = (event) => {
+    console.log(this.props);
+    const { value } = event.target;
+    this.setState({ searchValue: value });
   }
 
   render() {
-    // console.log(this.props.tracks);
     return (
       <div>
-        <input type="text" ref={input => this.trackInput = input} />
-        <button onClick={this.addTrack}>Add track</button>
+        <div>
+          <input type="text" value={this.state.inputValue} onChange={this.handleInputValue} />
+          <button onClick={this.addTrack}>Add track</button>
+        </div>
+        <div>
+          <input type="text" value={this.state.searchValue} onChange={this.handleSearchValue} />
+          <button onClick={this.findTrack}>Find track</button>
+        </div>
         <ul>
           {this.props.tracks.map((track, index) =>
-            <li key={index}>{track}</li>
+            <li key={index}>{track.name}</li>
           )}
         </ul> 
       </div>
@@ -26,10 +51,18 @@ class App extends Component {
 export default connect(
   state => ({
     tracks: state.tracks,
+    // tracks: state.tracks.filter(track => track.name.includes(state.searchValue)),
   }),
   dispatch => ({
     onAddTrack: (trackName) => {
-      dispatch({ type: 'ADD_TRACK', payload: trackName });
+      const payload = {
+        id: Date.now().toString(),
+        name: trackName,
+      };
+      dispatch({ type: 'ADD_TRACK', payload });
+    },
+    onFindTrack: (name) => {
+      dispatch({ type: 'FIND_TRACK', payload: name })
     }
   })
 )(App);
