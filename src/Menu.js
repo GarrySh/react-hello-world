@@ -7,6 +7,7 @@ export default class Menu extends Component {
       <div>
         <Link to='/'>Home</Link>
         <Link to='/dropdown'>Dropdown</Link>
+        <Link to='/tracks/1'>Tracks</Link>
         <Link to='/error'>Error</Link>
       </div>
     )

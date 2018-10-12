@@ -52,10 +52,13 @@ class App extends Component {
 }
 
 export default connect(
-  state => ({
-    tracks: state.tracks,
+  (state, ownProps) => {
+    console.log(ownProps)
+    return {
+      tracks: state.tracks,
     // tracks: state.tracks.filter(track => track.name.includes(state.searchValue)),
-  }),
+    }
+  },
   dispatch => ({
     onAddTrack: (trackName) => {
       const payload = {
